@@ -48,7 +48,7 @@ export function SwipeCard({ profile, onSwipe }: SwipeCardProps) {
   };
 
   return (
-    <div className="relative w-full max-w-sm h-[500px] flex items-center justify-center">
+    <div className="relative w-full max-w-sm h-[65vh] min-h-[400px] max-h-[550px] flex items-center justify-center mb-16 mt-4">
       <motion.div
         drag="x"
         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
@@ -57,7 +57,7 @@ export function SwipeCard({ profile, onSwipe }: SwipeCardProps) {
         style={{ x, rotate, opacity }}
         className="absolute w-full h-full bg-white rounded-3xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing border border-gray-200 flex flex-col"
       >
-        <div className="relative flex-1 bg-gray-100">
+        <div className="relative flex-1 bg-gray-100 overflow-hidden">
           {profile.imageUrl ? (
             <img src={profile.imageUrl} alt={profile.name} className="w-full h-full object-cover pointer-events-none" />
           ) : (
@@ -67,18 +67,19 @@ export function SwipeCard({ profile, onSwipe }: SwipeCardProps) {
           )}
           
           {/* Overlays */}
-          <motion.div style={{ opacity: likeOpacity }} className="absolute top-8 left-8 border-4 border-green-500 rounded-lg px-4 py-2 rotate-[-15deg] pointer-events-none">
+          <motion.div style={{ opacity: likeOpacity }} className="absolute top-8 left-8 border-4 border-green-500 rounded-lg px-4 py-2 rotate-[-15deg] pointer-events-none z-10">
             <span className="text-green-500 font-bold text-4xl uppercase">Like</span>
           </motion.div>
           
-          <motion.div style={{ opacity: nopeOpacity }} className="absolute top-8 right-8 border-4 border-red-500 rounded-lg px-4 py-2 rotate-[15deg] pointer-events-none">
+          <motion.div style={{ opacity: nopeOpacity }} className="absolute top-8 right-8 border-4 border-red-500 rounded-lg px-4 py-2 rotate-[15deg] pointer-events-none z-10">
             <span className="text-red-500 font-bold text-4xl uppercase">Nope</span>
           </motion.div>
-        </div>
-        
-        <div className="p-6 bg-white h-[120px] flex flex-col justify-end">
-          <h2 className="text-2xl font-bold text-gray-900">{profile.name}</h2>
-          <p className="text-gray-600 line-clamp-2 mt-1">{profile.bio || "No bio yet."}</p>
+
+          {/* User Info Overlay - Bottom anchored */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent text-white pt-10">
+            <h2 className="text-3xl font-black">{profile.name}</h2>
+            <p className="text-sm font-medium opacity-90 line-clamp-2 mt-1">{profile.bio || "No bio yet."}</p>
+          </div>
         </div>
       </motion.div>
 

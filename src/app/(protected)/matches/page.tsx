@@ -1,7 +1,22 @@
 import { getMatches } from '@/actions/match';
 
+export const dynamic = 'force-dynamic';
+
 export default async function MatchesPage() {
-  const matches = await getMatches();
+  const result = await getMatches();
+
+  if (!result.success) {
+    return (
+      <div className="p-6">
+        <h1 className="text-2xl font-bold text-gray-900 mb-6">Your Matches</h1>
+        <div className="text-center text-red-500 mt-12">
+          <p>Error loading matches: {result.error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  const matches = result.data || [];
 
   return (
     <div className="p-6">

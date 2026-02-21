@@ -1,12 +1,16 @@
 import { UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { Ghost, Heart } from 'lucide-react';
+import { ensureUserInDb } from '@/lib/user-sync';
 
-export default function ProtectedLayout({
+export default async function ProtectedLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Lazily sync the user to our DB if they don't exist yet
+  await ensureUserInDb();
+
   return (
     <div className="min-h-screen flex flex-col max-w-md mx-auto bg-white shadow-xl relative border-x border-gray-100">
       <header className="flex items-center justify-between p-4 border-b">

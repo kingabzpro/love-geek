@@ -19,7 +19,6 @@ GeekMatch is a production-ready MVP for a swipe-based dating application targete
 - `src/app/`: Next.js App Router definitions.
   - `(auth)/`: Public routes for Clerk authentication (`/sign-in`, `/sign-up`).
   - `(protected)/`: Authenticated routes (`/swipe`, `/matches`) guarded by Clerk middleware.
-  - `api/webhooks/clerk/`: Route handler to sync newly registered Clerk users securely to the database via Svix.
 - `src/actions/`: Next.js Server Actions for data mutations (e.g., `match.ts` for recording swipes and finding potential matches).
 - `src/components/`: Reusable React components (e.g., `SwipeCard.tsx`).
 - `src/db/`: Database configuration and Drizzle schema (`schema.ts`).
@@ -31,7 +30,6 @@ GeekMatch is a production-ready MVP for a swipe-based dating application targete
 
 1. Copy `.env.example` to `.env` or `.env.local` and fill in the required variables:
    - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` & `CLERK_SECRET_KEY` (from Clerk)
-   - `WEBHOOK_SECRET` (from Clerk Webhooks dashboard)
    - `DATABASE_URL` (from Neon Postgres)
 2. Install dependencies:
    ```bash

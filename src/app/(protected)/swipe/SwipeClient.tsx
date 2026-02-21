@@ -21,13 +21,15 @@ export function SwipeClient({ initialProfiles }: { initialProfiles: Profile[] })
 
     try {
       const result = await recordSwipe(id, action);
-      if (result.isMatch) {
+      if (result.success && result.isMatch) {
         setMatchNotification("It's a Match! 🎉");
         setTimeout(() => setMatchNotification(null), 3000);
+      } else if (!result.success) {
+        console.error('Failed to record swipe:', result.error);
+        // In a real app, we might restore the card here or show a toast
       }
     } catch (error) {
-      console.error('Failed to record swipe', error);
-      // In a real app, we might restore the card here
+      console.error('Failed to record swipe (Network/Unexpected Error)', error);
     }
   };
 

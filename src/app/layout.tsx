@@ -14,8 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className="antialiased bg-gray-50 text-gray-900 min-h-screen">
+      <html lang="en" suppressHydrationWarning>
+        <body className="antialiased bg-gray-50 text-gray-900 min-h-screen" suppressHydrationWarning>
           {children}
         </body>
       </html>
