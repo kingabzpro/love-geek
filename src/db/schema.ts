@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, uuid, varchar, uniqueIndex } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, varchar, uniqueIndex, boolean } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 export const users = pgTable('users', {
@@ -7,6 +7,7 @@ export const users = pgTable('users', {
   name: text('name').notNull(),
   bio: text('bio'),
   imageUrl: text('image_url'),
+  profileCompleted: boolean('profile_completed').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 

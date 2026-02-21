@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { SwipeCard } from '@/components/SwipeCard';
 import { recordSwipe } from '@/actions/match';
+import { AnimatePresence } from 'framer-motion';
 
 interface Profile {
   id: string;
@@ -47,18 +48,20 @@ export function SwipeClient({ initialProfiles }: { initialProfiles: Profile[] })
   return (
     <div className="flex-1 h-full flex flex-col items-center justify-center relative p-4 mt-8">
       {/* Reverse loop so the first element is on top of the DOM stack if using absolute positioning */}
-      {profiles.map((profile, i) => {
-        const isTopCard = i === 0;
-        if (!isTopCard) return null; // Simple approach: Only render the top card to avoid z-index complexity with framer motion
-        
-        return (
-          <SwipeCard 
-            key={profile.id} 
-            profile={profile} 
-            onSwipe={handleSwipe} 
-          />
-        );
-      })}
+      <AnimatePresence>
+        {profiles.map((profile, i) => {
+          const isTopCard = i === 0;
+          if (!isTopCard) return null; // Simple approach: Only render the top card to avoid z-index complexity with framer motion
+          
+          return (
+            <SwipeCard 
+              key={profile.id} 
+              profile={profile} 
+              onSwipe={handleSwipe} 
+            />
+          );
+        })}
+      </AnimatePresence>
 
       {matchNotification && (
         <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50 animate-in fade-in duration-300">

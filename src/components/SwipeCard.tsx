@@ -18,7 +18,6 @@ interface SwipeCardProps {
 
 export function SwipeCard({ profile, onSwipe }: SwipeCardProps) {
   const x = useMotionValue(0);
-  const controls = useAnimation();
   const [exitX, setExitX] = useState<number>(0);
 
   const rotate = useTransform(x, [-200, 200], [-20, 20]);
@@ -26,24 +25,19 @@ export function SwipeCard({ profile, onSwipe }: SwipeCardProps) {
   const likeOpacity = useTransform(x, [0, 100], [0, 1]);
   const nopeOpacity = useTransform(x, [-100, 0], [1, 0]);
 
-  const handleDragEnd = async (e: any, info: any) => {
+  const handleDragEnd = (e: any, info: any) => {
     if (info.offset.x > 100) {
-      setExitX(200);
-      await controls.start({ x: 500, opacity: 0, transition: { duration: 0.3 } });
+      setExitX(500);
       onSwipe(profile.id, 'like');
     } else if (info.offset.x < -100) {
-      setExitX(-200);
-      await controls.start({ x: -500, opacity: 0, transition: { duration: 0.3 } });
+      setExitX(-500);
       onSwipe(profile.id, 'dislike');
-    } else {
-      controls.start({ x: 0, transition: { type: 'spring' } });
     }
   };
 
-  const manualSwipe = async (action: 'like' | 'dislike') => {
+  const manualSwipe = (action: 'like' | 'dislike') => {
     const direction = action === 'like' ? 1 : -1;
-    setExitX(direction * 200);
-    await controls.start({ x: direction * 500, opacity: 0, transition: { duration: 0.3 } });
+    setExitX(direction * 500);
     onSwipe(profile.id, action);
   };
 
@@ -53,7 +47,7 @@ export function SwipeCard({ profile, onSwipe }: SwipeCardProps) {
         drag="x"
         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
         onDragEnd={handleDragEnd}
-        animate={controls}
+        exit={{ x: exitX, opacity: 0, transition: { duration: 0.3 } }}
         style={{ x, rotate, opacity }}
         className="absolute w-full h-full bg-white rounded-3xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing border border-gray-200 flex flex-col"
       >

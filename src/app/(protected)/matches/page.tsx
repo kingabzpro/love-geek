@@ -1,4 +1,5 @@
 import { getMatches } from '@/actions/match';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,7 +30,11 @@ export default async function MatchesPage() {
       ) : (
         <div className="grid grid-cols-2 gap-4">
           {matches.map((user) => (
-            <div key={user.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <Link 
+              href="#" 
+              key={user.id} 
+              className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:scale-105 transition-transform cursor-pointer block"
+            >
               <div className="aspect-square bg-gray-100 relative">
                 {user.imageUrl ? (
                   <img src={user.imageUrl} alt={user.name} className="w-full h-full object-cover" />
@@ -40,9 +45,9 @@ export default async function MatchesPage() {
                 )}
               </div>
               <div className="p-3">
-                <h3 className="font-semibold text-sm truncate">{user.name}</h3>
+                <h3 className="font-semibold text-sm text-black truncate">{user.name}</h3>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

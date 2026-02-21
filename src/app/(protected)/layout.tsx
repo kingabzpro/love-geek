@@ -2,6 +2,7 @@ import { UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { Ghost, Heart } from 'lucide-react';
 import { ensureUserInDb } from '@/lib/user-sync';
+import { redirect } from 'next/navigation';
 
 export default async function ProtectedLayout({
   children,
@@ -9,7 +10,12 @@ export default async function ProtectedLayout({
   children: React.ReactNode;
 }) {
   // Lazily sync the user to our DB if they don't exist yet
-  await ensureUserInDb();
+  const user = await ensureUserInDb();
+
+  // If the user's profile is not complete, redirect to onboarding
+  if (user && !user.profileCompleted) {
+    redirect('/onboarding');
+  }
 
   return (
     <div className="min-h-screen flex flex-col max-w-md mx-auto bg-white shadow-xl relative border-x border-gray-100">
