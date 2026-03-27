@@ -13,8 +13,7 @@ export const clerkAppearance: Appearance = {
     colorSuccess: '#10b981',
     colorWarning: '#f59e0b',
     borderRadius: '0.75rem',
-    fontFamily: 'var(--font-geist-sans), system-ui, sans-serif',
-    fontFamilyButtons: 'var(--font-geist-mono), monospace',
+    fontFamily: 'system-ui, -apple-system, sans-serif',
     fontSize: '0.875rem',
     spacingUnit: '1rem',
   },
@@ -28,19 +27,20 @@ export const clerkAppearance: Appearance = {
     headerSubtitle: 'text-[#94a3b8]',
 
     // Form fields
-    formFieldLabel: 'text-[#94a3b8] font-mono text-xs uppercase tracking-widest',
+    formFieldLabel: 'text-[#94a3b8] text-xs font-medium tracking-wide',
     formFieldInput:
       'bg-[#0d1520] border-[#1e3a55] text-[#e2e8f0] placeholder-[#475569] focus:border-[#00d4ff] focus:ring-[#00d4ff]/20 rounded-xl',
     formFieldInputShowPasswordButton: 'text-[#94a3b8] hover:text-[#00d4ff]',
 
     // Primary button
     formButtonPrimary:
-      'bg-[#00d4ff] text-[#050b14] font-bold hover:bg-[#0099bb] hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] transition-all rounded-xl font-mono',
+      'bg-[#00d4ff] text-[#050b14] font-semibold hover:bg-[#0099bb] hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] transition-all rounded-xl',
 
     // Social buttons
     socialButtonsBlockButton:
-      'bg-[#0d1520] border-[#1e3a55] text-[#e2e8f0] hover:bg-[#162033] hover:border-[#00d4ff]/40 transition-all rounded-xl',
-    socialButtonsBlockButtonText: 'text-[#e2e8f0] font-mono text-sm',
+      'bg-[#0d1520] border-[#1e3a55] hover:bg-[#162033] hover:border-[#00d4ff]/40 transition-all rounded-xl',
+    socialButtonsBlockButtonText: '!text-[#e2e8f0] text-sm font-medium',
+    socialButtonsBlockButtonArrow: 'text-[#94a3b8]',
 
     // Divider
     dividerLine: 'bg-[#1e3a55]',
