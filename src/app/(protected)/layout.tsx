@@ -1,46 +1,36 @@
 import { UserButton } from '@clerk/nextjs';
-import Link from 'next/link';
-import { Ghost, Heart } from 'lucide-react';
 import { ensureUserInDb } from '@/lib/user-sync';
 import { redirect } from 'next/navigation';
+import { BottomNav } from '@/components/BottomNav';
 
 export default async function ProtectedLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // Lazily sync the user to our DB if they don't exist yet
   const user = await ensureUserInDb();
 
-  // If the user's profile is not complete, redirect to onboarding
   if (user && !user.profileCompleted) {
     redirect('/onboarding');
   }
 
   return (
-    <div className="min-h-screen flex flex-col max-w-md mx-auto bg-white shadow-xl relative border-x border-gray-100">
-      <header className="flex items-center justify-between p-4 border-b">
-        <div className="flex items-center space-x-2">
-          <Ghost className="w-8 h-8 text-indigo-600" />
-          <span className="font-bold text-xl text-indigo-600">GeekMatch</span>
+    <div className="min-h-screen flex flex-col max-w-md mx-auto bg-surface shadow-2xl shadow-black/50 relative border-x border-border-subtle">
+      <header className="flex items-center justify-between px-5 py-3 border-b border-border-subtle bg-surface/80 backdrop-blur-md sticky top-0 z-40">
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-accent text-lg font-bold">{'</>'}</span>
+          <span className="font-bold text-base text-text tracking-tight">GeekMatch</span>
         </div>
         <UserButton afterSignOutUrl="/" />
       </header>
 
-      <main className="flex-1 overflow-y-auto relative bg-gray-50">
+      <main className="flex-1 overflow-y-auto relative bg-background">
         {children}
       </main>
 
-      <nav className="flex justify-around items-center p-4 border-t bg-white sticky bottom-0 z-50">
-        <Link href="/swipe" className="text-gray-500 hover:text-indigo-600 flex flex-col items-center">
-          <Ghost className="w-6 h-6" />
-          <span className="text-xs mt-1">Discover</span>
-        </Link>
-        <Link href="/matches" className="text-gray-500 hover:text-indigo-600 flex flex-col items-center">
-          <Heart className="w-6 h-6" />
-          <span className="text-xs mt-1">Matches</span>
-        </Link>
-      </nav>
+      <div className="sticky bottom-0 z-50">
+        <BottomNav />
+      </div>
     </div>
   );
 }

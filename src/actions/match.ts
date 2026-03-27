@@ -119,11 +119,12 @@ export async function getPotentialMatches() {
     const excludeIds = swipedOn.map(s => s.swipedId);
     excludeIds.push(swiperDbUser.id); // Exclude self
 
-    const potentialUsers = await db.query.users.findMany({
-      where: notInArray(users.id, excludeIds),
-      limit: 10,
-    });
-    
+    const query = excludeIds.length > 0
+      ? db.query.users.findMany({ where: notInArray(users.id, excludeIds), limit: 10 })
+      : db.query.users.findMany({ limit: 10 });
+
+    const potentialUsers = await query;
+
     return { success: true, data: potentialUsers };
   } catch (error) {
     console.error("Critical error in getPotentialMatches:", error);
@@ -156,7 +157,7 @@ export async function getMatches() {
       where: inArray(users.id, matchedUserIds),
     });
 
-    return { success: true, data: matchedUsers };
+    return { success: true, data: matchedUsers, currentUserInterests: currentUser.interests };
   } catch (error) {
     console.error("Critical error in getMatches:", error);
     return { success: false, error: "Internal server error.", data: [] };
