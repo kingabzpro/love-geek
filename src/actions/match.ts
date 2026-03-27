@@ -120,8 +120,8 @@ export async function getPotentialMatches() {
     excludeIds.push(swiperDbUser.id); // Exclude self
 
     const query = excludeIds.length > 0
-      ? db.query.users.findMany({ where: notInArray(users.id, excludeIds), limit: 10 })
-      : db.query.users.findMany({ limit: 10 });
+      ? db.query.users.findMany({ where: and(eq(users.profileCompleted, true), notInArray(users.id, excludeIds)), limit: 10 })
+      : db.query.users.findMany({ where: eq(users.profileCompleted, true), limit: 10 });
 
     const potentialUsers = await query;
 

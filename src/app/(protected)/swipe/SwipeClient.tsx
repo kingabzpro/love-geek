@@ -62,7 +62,7 @@ export function SwipeClient({ initialProfiles }: { initialProfiles: Profile[] })
   return (
     <div className="flex-1 h-full flex flex-col items-center justify-center relative px-4 pt-4 pb-20">
       {/* Card stack */}
-      <div className="relative w-full max-w-sm" style={{ height: 'min(65vh, 520px)' }}>
+      <div className="relative w-full max-w-sm" style={{ height: 'min(70vh, 560px)' }}>
         <AnimatePresence>
           {[...profiles].slice(0, 3).reverse().map((profile, reversedIndex) => {
             const stackIndex = Math.min(profiles.slice(0, 3).length - 1 - reversedIndex, 2);
