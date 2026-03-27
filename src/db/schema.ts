@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, uuid, varchar, uniqueIndex, boolean } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, varchar, uniqueIndex, boolean, integer } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 export const users = pgTable('users', {
@@ -8,6 +8,10 @@ export const users = pgTable('users', {
   bio: text('bio'),
   imageUrl: text('image_url'),
   profileCompleted: boolean('profile_completed').default(false).notNull(),
+  interests: text('interests').array().default([]).notNull(),
+  githubUrl: text('github_url'),
+  age: integer('age'),
+  location: varchar('location', { length: 100 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
